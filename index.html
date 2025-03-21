@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Danh mục sản phẩm</h1>
+        <div id="category-container"></div>
+
+        <div class="search-sort">
+            <input type="text" id="search" placeholder="Nhập từ khóa tìm kiếm..." onkeyup="filterProducts()">
+            <select id="sort" onchange="filterProducts()">
+                <option value="default">Mặc định</option>
+                <option value="priceLowHigh">Giá thấp đến cao</option>
+                <option value="priceHighLow">Giá cao đến thấp</option>
+                <option value="discount">Giảm giá nhiều</option>
+            </select>
+        </div>
+
+        <div id="product-list" class="product-grid"></div>
+
+        <div class="pagination">
+            <button onclick="changePage(-1)">Trước</button>
+            <span id="page-info"></span>
+            <button onclick="changePage(1)">Sau</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
