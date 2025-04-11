@@ -54,4 +54,3 @@ print(df_sorted)
 
 # (1d) Ghi dữ liệu ra file NNLT.csv
 df_sorted.to_csv("NNLT.csv", index=False, encoding="utf-8-sig")
-
