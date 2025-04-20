@@ -1,54 +1,45 @@
-class Item:
-    def __init__(self, code, name, quantity, price):
-        self.code = code
-        self.name = name
-        self.quantity = quantity
-        self.price = price
+# Hàm tính điểm cuối
+def calculate_final_grade(midterm, final_exam):
+    return midterm * 0.4 + final_exam * 0.6
 
-    def total_value(self):
-        return self.quantity * self.price
-
-def input_items():
-    items = []
-    
-    n = int(input("Nhập số lượng mặt hàng: "))
-    for _ in range(n):
-        code = input("Mã hàng: ")
-        name = input("Tên mặt hàng: ")
-        quantity = int(input("Số lượng: "))
-        price = float(input("Giá tiền: "))
-        item = Item(code, name, quantity, price)
-        items.append(item)
-    
-    return items
-
-def display_items(items):
-    print(f"{'Mã hàng':<10} {'Tên mặt hàng':<20} {'Số lượng':<10} {'Giá tiền':<10} {'Tổng giá trị':<15}")
-    print("="*65)
-    for item in items:
-        print(f"{item.code:<10} {item.name:<20} {item.quantity:<10} {item.price:<10} {item.total_value():<15}")
-
-def calculate_total_value(items):
-    return sum(item.total_value() for item in items)
-
-def find_min_value_item(items):
-    return min(items, key=lambda item: item.total_value())
-
-def count_items_above_quantity(items, quantity_limit=5):
-    return sum(1 for item in items if item.quantity > quantity_limit and item.total_value() < 1000000)
-
+# Chương trình chính
 def main():
-    items = input_items()
-    display_items(items)
+    students = []
     
-    total_value = calculate_total_value(items)
-    print(f"\nTổng giá trị của tất cả mặt hàng: {total_value} VND")
+    while True:
+        # Nhập thông tin sinh viên
+        student_id = input("Nhập mã sinh viên (hoặc gõ 'exit' để kết thúc): ")
+        if student_id.lower() == 'exit':
+            break
+        
+        name = input("Nhập tên sinh viên: ")
+        midterm_score = float(input("Nhập điểm thi giữa kỳ: "))
+        final_exam_score = float(input("Nhập điểm thi cuối kỳ: "))
+        
+        # Tính điểm cuối
+        final_grade = calculate_final_grade(midterm_score, final_exam_score)
+        
+        # Lưu thông tin sinh viên
+        students.append({
+            "ID": student_id,
+            "Name": name,
     
-    min_item = find_min_value_item(items)
-    print(f"\nMặt hàng có tổng giá trị nhỏ nhất: {min_item.name} - Tổng giá trị: {min_item.total_value()} VND")
     
-    count_above_quantity = count_items_above_quantity(items)
-    print(f"Số lượng mặt hàng có số lượng lớn hơn 5 và tổng giá trị dưới 1,000,000 VND: {count_above_quantity}")
+            "Midterm": midterm_score,
+            "Final Exam": final_exam_score,
+            "Final Grade": final_grade
+        })
+    
+    # Xuất danh sách sinh viên và điểm cuối
+    print("\nDanh sách sinh viên và điểm cuối:")
+    for student in students:
+        print(f"Mã: {student['ID']}, Tên: {student['Name']}, Điểm cuối: {student['Final Grade']:.2f}")
+
+    # Tìm sinh viên có điểm cuối >= 8.0 và điểm giữa kỳ < 5
+    print("\nDanh sách sinh viên có điểm cuối >= 8.0 và điểm giữa kỳ < 5:")
+    for student in students:
+        if student["Final Grade"] >= 8.0 and student["Midterm"] < 5:
+            print(f"Mã: {student['ID']}, Tên: {student['Name']}")
 
 if __name__ == "__main__":
     main()
